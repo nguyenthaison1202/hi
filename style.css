@@ -1,0 +1,122 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navbar{
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar-brand{
+    display: flex;
+
+}
+
+.navbar-brand i {
+    font-size:32px;
+    margin-right: 12px;
+    margin-left: 16px;
+}
+
+.navbar-symbol{
+    font-size: 32px;
+
+}
+
+.dropdown{
+    margin-right: 80px;
+}
+
+
+/* btn */
+.btn_custom{
+
+  background: linear-gradient(to right,#a2ccb6 0%,#fceeb5 50%,#ee786e 100%);
+  background-size: 500%;
+  border: none;
+  border-radius: 5rem;
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+  color: #fff;
+  cursor: pointer;
+  font: 1.5em Raleway, sans-serif;
+  letter-spacing: .05em;
+  outline: none;
+  width: 220px;
+  height: 50px;
+  
+}
+
+.btn:hover{
+    animation-name: gradient;
+    animation-duration: 1.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    
+
+}
+
+@keyframes gradient{
+
+    0% {
+        background-position: 0% 50%;
+    }
+    100%{
+        background-position: 100% ;
+    }
+}
+/* file button */
+input[type=file]::file-selector-button {
+    border-radius: 8px;
+    border-color: transparent;
+    background-color:#4becc9;
+    color: #22459c;
+}
+
+input[type=file]::file-selector-button:hover{
+    cursor:pointer;
+    background-color:#3fbea3;
+}
+
+/* Footer */
+
+.footer{
+    width: 100%;
+    height: 60px;
+    max-height: 200px;
+    text-align:center;
+    padding-top:12px;
+}
+
+
+/*User */
+.user-login{
+    display:flex;
+
+}
+.user-img{
+    width: 30px;
+    height: 24px;
+    border-radius: 50%;
+    margin-top: 8px;
+}
+
+.user-img:hover{
+    cursor: pointer;
+}
+
+
+
+/* form */
+
+form{
+    background-color:#fceeb5;
+    padding-top:64px;
+    padding-bottom: 64px;
+}
+
+.sub-desc{
+    text-align:right; 
+    font-size:24px;
+}
