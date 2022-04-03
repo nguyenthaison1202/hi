@@ -1,5 +1,5 @@
 <?php
-// include './connect.php';
+	//include './connect.php';
     if(isset($_POST['user-name']))
     {
         $username=$_POST["user-name"];
@@ -108,72 +108,84 @@
     <title>Document</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark ">
-        <a class="navbar-brand" href="#">
-            <i class="fa fa-building"></i>
-            <h1 class="navbar-symbol">PPS bank</h1>
-        </a>
-      
-       
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link login" href="#">Đăng nhập</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link signup active" href="#">Đăng kí</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                Xem Thêm
-            </a>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Thông tin ngân hàng</a>
-              <a class="dropdown-item" href="#">Quyền lợi khách hàng</a>
-              <a class="dropdown-item" href="#">Hỏi & Đáp</a>
-            </div>
-          </li>
-        </ul>
-      </nav>
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark ">
+                <a class="navbar-brand" href="#">
+                    <i class="fa fa-building"></i>
+                    <h1 class="navbar-symbol">PPS bank</h1>
+                </a>
+              
+               
+                <ul class="navbar-nav menuItems mb-5">
+                  <li class="nav-item">
+                    <a class="nav-link login" href="#">Đăng nhập</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link signup active" href="#">Đăng kí</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                        Xem Thêm
+                    </a>
+                    <div class="dropdown-menu ">
+                      <a class="dropdown-item" href="#">Thông tin ngân hàng</a>
+                      <a class="dropdown-item" href="#">Quyền lợi khách hàng</a>
+                      <a class="dropdown-item" href="#">Hỏi & Đáp</a>
+                    </div>
+                  </li>
+                </ul>
+                <i class="fa fa-bars text-white menu-icon" onclick="Handle()"></i>
+            </nav>
     
       <form action="register.php" method="POST" role="form">
             <div class="container w-100">
             <h2 class="text-center">Đăng ký thành viên mới </h2>
             <div class="form-group">
+                <i class="fa fa-user"></i>
                 <label for="usr" style="cursor: pointer;">Họ và tên <span style="color:red;">(*)</span></label>
                 <input name="user-name" id="usr" type="text" class="form-control w-100">
                 <div class="has-error">
                     <span class="text-danger"> <?php echo(isset($error['username']))?$error['username']:"" ?></span>
                 </div>
             </div>
+
             <div class="form-group">
+                <i class="fa fa-envelope"></i>
                 <label for="email" style="cursor: pointer;">Email <span style="color:red;">(*)</span></label>
                 <input name="email" id="email" type="email" class="form-control w-100">
                 <div class="has-error">
                     <span class="text-danger"> <?php echo(isset($error['email']))?$error['email']:"" ?></span>
                 </div>
             </div>
+
             <div class="form-group">
+                <i class="fa fa-city"></i>
                 <label for="address" style="cursor: pointer;">Địa chỉ <span style="color:red;">(*)</span></label>
                 <input name="address" id="address" type="text" class="form-control w-100">
                 <div class="has-error">
                     <span class="text-danger"> <?php echo(isset($error['address']))?$error['address']:"" ?></span>
                 </div>
             </div>
+
             <div class="form-group">
+                <i class="fa fa-calendar"></i>
                 <label for="birthday" style="cursor: pointer;">Ngày tháng năm sinh <span style="color:red;">(*)</span></label>
                 <input name="birthday" id="birthday" type="date" class="form-control w-100">
                 <div class="has-error">
                     <span class="text-danger"> <?php echo(isset($error['birthday']))?$error['birthday']:"" ?></span>
                 </div>
             </div>
+
             <div class="form-group">
+                <i class="fa fa-phone"></i>
                 <label for="phone" style="cursor: pointer;">Số điện thoại <span style="color:red;">(*)</span></label>
                 <input name="phone" id="phone" type="tel" class="form-control w-100">
                 <div class="has-error">
                     <span class="text-danger"> <?php echo(isset($error['phone']))?$error['phone']:"" ?></span>
                 </div>
             </div>
+
             <div class="form-group">
+                <i class="fa fa-image"></i>
                 <label for="file" style="cursor: pointer;">Upload CMND mặt trước</label>
                 <input type="file" onchange="loadFile(event)" class="form-control-file" id="file" name="img-id-first" accept="image/*">
                 <img class="img-thumbnail w-25" id="output" width="200"/>
@@ -187,7 +199,9 @@
                     <span class="text-danger"> <?php echo(isset($error['CMNDbefore']))?$error['CMNDbefore']:"" ?></span>
                 </div>
             </div>
+
             <div class="form-group">
+                <i class="fa fa-image"></i>
                 <label for="file" style="cursor: pointer;">Upload CMND mặt sau</label>
                 <input type="file" onchange="loadFile(event)" class="form-control-file" id="file" name="img-id-after" accept="image/*">
                 <img class="img-thumbnail w-25" id="output"/>
@@ -205,11 +219,27 @@
             <div class="row">
                 <div class="col-sm-12 pr-5">
                     <button type="submit" class="btn btn_custom" >Đăng ký ngay</button>
-                    <h4 class='sub-desc'>Đã có tài khoản ? <a href="./login.html">Đăng nhập</a></h4>
+                    <h4 class='sub-desc'>Đã có tài khoản ? <a href="#">Đăng nhập</a></h4>
                 </div>                       
             </div>
         </div>
     </form>
     <footer class="footer bg-dark text-white"><h4 class="footer-font"> ©Bản quyền thuộc về Phát - Phúc - Sơn</h4></footer>
 </body>
+    
+<script>
+        var MenuItems = document.querySelector(".menuItems");
+        MenuItems.style.maxHeight ="0px";
+        function Handle()
+        {
+            if(MenuItems.style.maxHeight =="0px")
+            {
+                MenuItems.style.maxHeight ="400px";
+            }
+            else
+            {
+                MenuItems.style.maxHeight ="0px";
+            }
+        }
+    </script>
 </html>

@@ -120,3 +120,75 @@ form{
     text-align:right; 
     font-size:24px;
 }
+
+.menu-icon{
+    display:none;
+}
+
+.dropdown-menu{
+    margin-top:35px;
+}
+
+
+@media screen and (max-width:720px){
+    .sub-desc{
+        margin: 0;
+        padding-top: 12px;
+        font-size: 24px;
+        padding-right: 12px;
+    }
+
+    .footer-font{
+        font-size:16px;
+    }
+
+    nav ul{
+        position:absolute;
+        top:70px;
+        left:0; 
+        background:#333;
+        width:100%;
+        overflow: hidden;
+        transition:max-height 0.5s;
+        
+    }
+
+    .menuItems{
+        padding-left: 24px;
+        font-size: 24px;
+    }
+
+    .dropdown-menu{
+        background:white;
+        width: 85%;
+        margin-top: 0;
+    }
+
+    .dropdown-item{
+        color: rgb(148, 146, 146);
+        font-size: 20px;
+    }
+
+    .nav-item{
+        width: 100%;
+    }
+
+    nav ul li{
+        display:block;
+        margin-right: 50px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    nav ul li a{
+        color: #fff;
+    }
+
+    
+    .menu-icon{
+        display:block;
+        cursor: pointer;
+    }
+
+    
+}
