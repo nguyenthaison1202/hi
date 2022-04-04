@@ -4,6 +4,7 @@
     box-sizing: border-box;
 }
 
+/* register start */
 .navbar{
     display: flex;
     justify-content: space-between;
@@ -193,6 +194,7 @@ form{
     
 }
 
+/* register end */
 
 
 /* error message */
@@ -207,3 +209,4 @@ form{
 .error-input{
     border: 1px solid rgb(235, 47, 47);
 }
+

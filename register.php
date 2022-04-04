@@ -111,13 +111,13 @@
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark ">
                 <a class="navbar-brand" href="#">
                     <i class="fa fa-building"></i>
-                    <h1 class="navbar-symbol">PPS bank</h1>
+                    <h1 class="navbar-symbol">PPS Bank</h1>
                 </a>
               
                
                 <ul class="navbar-nav menuItems mb-5">
                   <li class="nav-item">
-                    <a class="nav-link login" href="#">Đăng nhập</a>
+                    <a class="nav-link login" href="./login.php">Đăng nhập</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link signup active" href="#">Đăng kí</a>
@@ -228,19 +228,4 @@
 </body>
 <script src='./register.js'></script>
     
-<script>
-        var MenuItems = document.querySelector(".menuItems");
-        MenuItems.style.maxHeight ="0px";
-        function Handle()
-        {
-            if(MenuItems.style.maxHeight =="0px")
-            {
-                MenuItems.style.maxHeight ="400px";
-            }
-            else
-            {
-                MenuItems.style.maxHeight ="0px";
-            }
-        }
-    </script>
 </html>
