@@ -136,89 +136,89 @@
                 <i class="fa fa-bars text-white menu-icon" onclick="Handle()"></i>
             </nav>
     
-      <form action="register.php" method="POST" role="form">
+      <form action="register.php" method="POST" role="form" id='signUp_form'>
             <div class="container w-100">
             <h2 class="text-center">Đăng ký thành viên mới </h2>
             <div class="form-group">
                 <i class="fa fa-user"></i>
                 <label for="usr" style="cursor: pointer;">Họ và tên <span style="color:red;">(*)</span></label>
-                <input name="user-name" id="usr" type="text" class="form-control w-100">
+                <input name="user-name" id="usr" type="text" class="form-control w-100" onkeyup="successMessage()">
                 <div class="has-error">
-                    <span class="text-danger"> <?php echo(isset($error['username']))?$error['username']:"" ?></span>
+                    <span class="text-danger userName-error"> <?php echo(isset($error['username']))?$error['username']:"" ?></span>
                 </div>
             </div>
 
             <div class="form-group">
                 <i class="fa fa-envelope"></i>
                 <label for="email" style="cursor: pointer;">Email <span style="color:red;">(*)</span></label>
-                <input name="email" id="email" type="email" class="form-control w-100">
+                <input name="email" id="email" type="email" class="form-control w-100" onkeyup="successMessage()">
                 <div class="has-error">
-                    <span class="text-danger"> <?php echo(isset($error['email']))?$error['email']:"" ?></span>
+                    <span class="text-danger email-error"> <?php echo(isset($error['email']))?$error['email']:"" ?></span>
                 </div>
             </div>
 
             <div class="form-group">
                 <i class="fa fa-city"></i>
                 <label for="address" style="cursor: pointer;">Địa chỉ <span style="color:red;">(*)</span></label>
-                <input name="address" id="address" type="text" class="form-control w-100">
+                <input name="address" id="address" type="text" class="form-control w-100" onkeyup="successMessage()">
                 <div class="has-error">
-                    <span class="text-danger"> <?php echo(isset($error['address']))?$error['address']:"" ?></span>
+                    <span class="text-danger address-error"> <?php echo(isset($error['address']))?$error['address']:"" ?></span>
                 </div>
             </div>
 
             <div class="form-group">
                 <i class="fa fa-calendar"></i>
                 <label for="birthday" style="cursor: pointer;">Ngày tháng năm sinh <span style="color:red;">(*)</span></label>
-                <input name="birthday" id="birthday" type="date" class="form-control w-100">
+                <input name="birthday" id="birthday" type="date" class="form-control w-100" onkeyup="successMessage()">
                 <div class="has-error">
-                    <span class="text-danger"> <?php echo(isset($error['birthday']))?$error['birthday']:"" ?></span>
+                    <span class="text-danger birth-error"> <?php echo(isset($error['birthday']))?$error['birthday']:"" ?></span>
                 </div>
             </div>
 
             <div class="form-group">
                 <i class="fa fa-phone"></i>
                 <label for="phone" style="cursor: pointer;">Số điện thoại <span style="color:red;">(*)</span></label>
-                <input name="phone" id="phone" type="tel" class="form-control w-100">
+                <input name="phone" id="phone" type="tel" class="form-control w-100" onkeyup="successMessage()">
                 <div class="has-error">
-                    <span class="text-danger"> <?php echo(isset($error['phone']))?$error['phone']:"" ?></span>
+                    <span class="text-danger phone-error"> <?php echo(isset($error['phone']))?$error['phone']:"" ?></span>
                 </div>
             </div>
 
             <div class="form-group">
                 <i class="fa fa-image"></i>
                 <label for="file" style="cursor: pointer;">Upload CMND mặt trước</label>
-                <input type="file" onchange="loadFile(event)" class="form-control-file" id="file" name="img-id-first" accept="image/*">
-                <img class="img-thumbnail w-25" id="output" width="200"/>
+                <input type="file" onchange="loadFile(event);successMessage()" class="form-control-file" id="file-before" name="img-id-first" accept="image/*">
+                <img class="img-thumbnail w-25" id="output-before" width="200"/>
                 <script>
                     var loadFile = function(event) {
-	                var image = document.getElementById('output');
+	                var image = document.getElementById('output-before');
 	                image.src = URL.createObjectURL(event.target.files[0]);
                     };
                 </script>
                 <div class="has-error">
-                    <span class="text-danger"> <?php echo(isset($error['CMNDbefore']))?$error['CMNDbefore']:"" ?></span>
+                    <span class="text-danger idResident-before-error"> <?php echo(isset($error['CMNDbefore']))?$error['CMNDbefore']:"" ?></span>
                 </div>
             </div>
 
             <div class="form-group">
                 <i class="fa fa-image"></i>
                 <label for="file" style="cursor: pointer;">Upload CMND mặt sau</label>
-                <input type="file" onchange="loadFile(event)" class="form-control-file" id="file" name="img-id-after" accept="image/*">
-                <img class="img-thumbnail w-25" id="output"/>
+                <input type="file" onchange="loadFile1(event);successMessage()" class="form-control-file" id="file-after" name="img-id-after" accept="image/*">
+                <img class="img-thumbnail w-25" id="output-after"/>
                 <script>
-                    var loadFile = function(event) {
-	                var image = document.getElementById('output');
+                    var loadFile1 = function(event) {
+	                var image = document.getElementById('output-after');
 	                image.src = URL.createObjectURL(event.target.files[0]);
                    };
                 </script>
                 <div class="has-error">
-                    <span class="text-danger"> <?php echo(isset($error['CMNDafter']))?$error['CMNDafter']:"" ?></span>
+                    <span class="text-danger idResident-after-error"> <?php echo(isset($error['CMNDafter']))?$error['CMNDafter']:"" ?></span>
                 </div>
             </div>
             
             <div class="row">
                 <div class="col-sm-12 pr-5">
-                    <button type="submit" class="btn btn_custom" >Đăng ký ngay</button>
+                    <button type="submit" class="btn btn_custom btn-signup" >Đăng ký ngay</button>
                     <h4 class='sub-desc'>Đã có tài khoản ? <a href="#">Đăng nhập</a></h4>
                 </div>                       
             </div>
@@ -226,6 +226,7 @@
     </form>
     <footer class="footer bg-dark text-white"><h4 class="footer-font"> ©Bản quyền thuộc về Phát - Phúc - Sơn</h4></footer>
 </body>
+<script src='./register.js'></script>
     
 <script>
         var MenuItems = document.querySelector(".menuItems");

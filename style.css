@@ -192,3 +192,18 @@ form{
 
     
 }
+
+
+
+/* error message */
+
+.error-message{
+    color: rgb(235, 47, 47);
+    font-size: 14px;
+    margin-top: 5px;
+
+}
+
+.error-input{
+    border: 1px solid rgb(235, 47, 47);
+}
