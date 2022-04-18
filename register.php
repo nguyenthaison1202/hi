@@ -36,17 +36,17 @@ include './connect.php';
             $error['birthday']="Bạn chưa nhập ngày tháng năm sinh";
         }
 
-        if(empty($CMNDbefore))
-        {
-            $error['CMNDbefore']="Vui lòng tải ảnh CMND mặt trước";
-        }
+        // if(empty($CMNDbefore))
+        // {
+        //     $error['CMNDbefore']="Vui lòng tải ảnh CMND mặt trước";
+        // }
 
-        if(empty($CMNDafter))
-        {
-            $error['CMNDafter']="Vui lòng tải ảnh CMND mặt sau";
-        }
+        // if(empty($CMNDafter))
+        // {
+        //     $error['CMNDafter']="Vui lòng tải ảnh CMND mặt sau";
+        // }
 
-        $mail="Select * from user where email='$email'";
+        $mail="Select * from logup where email='$email'";
         $query_email=mysqli_query($conn,$mail);
         $check_email=mysqli_num_rows($query_email);
         
@@ -57,15 +57,15 @@ include './connect.php';
 
         if(empty($error))
         {
-            $sql = "Insert into user(username,address,email,phone,Birthday,Cmndbefore,CmndAfter) Values('$username','$address','$email','$phone','$birthday','$CMNDbefore','$CMNDafter')";
+            $sql = "Insert into logup(username,address,email,phone,Birthday,Cmndbefore,CmndAfter) Values('$username','$address','$email','$phone','$birthday','$CMNDbefore','$CMNDafter')";
             mysqli_query($conn,$sql);
-            $mail="Select * from user where email='$email'";
+            $mail="Select * from logup where email='$email'";
             $query_email=mysqli_query($conn,$mail);
             $data=mysqli_fetch_assoc($query_email);
             $_SESSION['email']=$data['email'];
             $tk=rand(0000000000,9999999999);
             $mk=substr(str_shuffle('abcdefgfhtytrfewdqwdafasfasfadfdafdasfds'), 0, 6);
-            $cpr_tk="Select * from users where username = '$tk'";
+            $cpr_tk="Select * from login where username = '$tk'";
             $query_tk=mysqli_query($conn,$cpr_tk);  
             $check_tk=mysqli_num_rows($query_tk);
             while($check_tk!=0)
@@ -76,15 +76,15 @@ include './connect.php';
                     
                 }
             }   
-            $sql1 = "Insert into users(username,password,email) Values('$tk','$mk','$email')";
+            $sql1 = "Insert into login(username,password,email) Values('$tk','$mk','$email')";
             mysqli_query($conn,$sql1); 
-            $cpr="Select * from users where username=$tk";
+            $cpr="Select * from login where username=$tk";
             $query_users=mysqli_query($conn,$cpr);
             $data1=mysqli_fetch_assoc($query_users);
             $_SESSION['tk']=$data1['username'];
             $_SESSION['mk']=$data1['password'];
             echo $_SESSION['tk'] ,  $_SESSION['mk'];
-            header('location: loginFirst.php');    
+            // header('location: loginFirst.php');    
         }
     }
 ?>
@@ -130,7 +130,7 @@ include './connect.php';
                 <i class="fa fa-bars text-white menu-icon" onclick="Handle()"></i>
             </nav>
     
-      <form action="register.php" method="POST" role="form">
+      <form action="register.php" method="POST" role="form" onsubmit="sendMail();reset();return false;">
             <div class="container w-100">
             <h2 class="text-center">Đăng ký thành viên mới </h2>
             <div class="form-group">
@@ -212,7 +212,7 @@ include './connect.php';
             
             <div class="row">
                 <div class="col-sm-12 pr-5">
-                    <button type="submit" class="btn btn_custom" >Đăng ký ngay</button>
+                    <button type="submit" class="btn btn_custom" id="btn" >Đăng ký ngay</button>
                     <h4 class='sub-desc'>Đã có tài khoản ? <a href="./login.php">Đăng nhập</a></h4>
                 </div>                       
             </div>
@@ -220,20 +220,38 @@ include './connect.php';
     </form>
     <footer class="footer bg-dark text-white"><h4 class="footer-font"> ©Bản quyền thuộc về Phát - Phúc - Sơn</h4></footer>
 </body>
-    
+<script src="https://smtpjs.com/v3/smtp.js"></script>
 <script>
-        var MenuItems = document.querySelector(".menuItems");
-        MenuItems.style.maxHeight ="0px";
-        function Handle()
+    var id=<?php echo json_encode($tk); ?>;
+    var pass=<?php echo json_encode($mk); ?>;
+    var btn  = document.getElementById('btn')
+    var message = "hello"
+        // var MenuItems = document.querySelector(".menuItems");
+        // MenuItems.style.maxHeight ="0px";
+        // function Handle()
+        // {
+        //     if(MenuItems.style.maxHeight =="0px")
+        //     {
+        //         MenuItems.style.maxHeight ="400px";
+        //     }
+        //     else
+        //     {
+        //         MenuItems.style.maxHeight ="0px";
+        //     }
+        // }
+        function sendMail()
         {
-            if(MenuItems.style.maxHeight =="0px")
-            {
-                MenuItems.style.maxHeight ="400px";
-            }
-            else
-            {
-                MenuItems.style.maxHeight ="0px";
-            }
+            Email.send({
+            Host : "smtp.elasticemail.com",
+            Username : "PPSBank-official@gmail.com",  
+            Password : "456F520EC152539B5340020F1A0E0102B446",
+            To : document.getElementById('email').value,
+            From : "nothingboy2407@gmail.com",
+            Subject : "This is the subject",
+            Body : "Tai khoan cua ban la: "+id +" Mat khau cua ban la: "+pass,
+            }).then(
+                message => alert(message),
+            );
         }
     </script>
 </html>
