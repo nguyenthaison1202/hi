@@ -12,6 +12,7 @@ if(isset($_POST['user-name']))
     $error=[];
 
     if(empty($username))
+    if(isset($_POST['user-name']))
     {
         $error['username']="Bạn chưa nhập họ và tên";
     }
@@ -222,11 +223,7 @@ if(isset($_POST['user-name']))
 </body>
 <script src="https://smtpjs.com/v3/smtp.js"></script>
 <script>
-        var id=<?php echo json_encode($tk); ?>;
-        var pass=<?php echo json_encode($mk); ?>;
-        var btn  = document.getElementById('btn')
-        var message = "hello"
-        var MenuItems = document.querySelector(".menuItems");
+        let MenuItems = document.querySelector(".menuItems");
         MenuItems.style.maxHeight ="0px";
         function Handle()
         {
