@@ -1,96 +1,92 @@
 <?php
-	// include './connect.php';
-    if(isset($_POST['user-name']))
+include './connect.php';
+if(isset($_POST['user-name']))
+{
+    $username=$_POST["user-name"];
+    $email=$_POST["email"];
+    $address=$_POST["address"];
+    $birthday=$_POST["birthday"];
+    $phone=$_POST["phone"];
+    $CMNDbefore = $_POST["img-id-first"];
+    $CMNDafter = $_POST["img-id-after"];
+    $error=[];
+
+    if(empty($username))
     {
-        $username=$_POST["user-name"];
-        $email=$_POST["email"];
-        $address=$_POST["address"];
-        $birthday=$_POST["birthday"];
-        $phone=$_POST["phone"];
-        $CMNDbefore = $_POST["img-id-first"];
-        $CMNDafter = $_POST["img-id-after"];
-        $error=[];
+        $error['username']="Bạn chưa nhập họ và tên";
+    }
 
-        if(empty($username))
-        {
-            $error['username']="Bạn chưa nhập họ và tên";
-        }
+    if(empty($email))
+    {
+        $error['email']="Bạn chưa nhập email";
+    }
 
-        if(empty($email))
-        {
-            $error['email']="Bạn chưa nhập email";
-        }
+    if(empty($address))
+    {
+        $error['address']="Bạn chưa nhập địa chỉ";
+    }
 
-        if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-            $error['email']="Email bạn nhập không hợp lệ";
-        }
+    if(empty($phone))
+    {
+        $error['phone']="Bạn chưa nhập số đIện thoại";
+    }
 
-        if(empty($address))
-        {
-            $error['address']="Bạn chưa nhập địa chỉ";
-        }
+    if(empty($birthday))
+    {
+        $error['birthday']="Bạn chưa nhập ngày tháng năm sinh";
+    }
 
-        if(empty($phone))
-        {
-            $error['phone']="Bạn chưa nhập số đIện thoại";
-        }
+    if(empty($CMNDbefore))
+    {
+        $error['CMNDbefore']="Vui lòng tải ảnh CMND mặt trước";
+    }
 
-        if(empty($birthday))
-        {
-            $error['birthday']="Bạn chưa nhập ngày tháng năm sinh";
-        }
+    if(empty($CMNDafter))
+    {
+        $error['CMNDafter']="Vui lòng tải ảnh CMND mặt sau";
+    }
 
-        if(empty($CMNDbefore))
-        {
-            $error['CMNDbefore']="Vui lòng tải ảnh CMND mặt trước";
-        }
+    $mail="Select * from user where email='$email'";
+    $query_email=mysqli_query($conn,$mail);
+    $check_email=mysqli_num_rows($query_email);
+    
+    if($check_email!=0)
+    {
+        $error['email']='Email này đã được đăng ký'; 
+    }
 
-        if(empty($CMNDafter))
-        {
-            $error['CMNDafter']="Vui lòng tải ảnh CMND mặt sau";
-        }
-
-        $mail="Select * from user where email='$email'";
-        $query_email=mysqli_query($conn,$mail);
-        $check_email=mysqli_num_rows($query_email);
-        
-        if($check_email!=0)
-        {
-            $error['email']='Email này đã được đăng ký'; 
-        }
-
-        if(empty($error))
-        {
+    if(empty($error))
+    {
         $sql = "Insert into user(username,address,email,phone,Birthday,Cmndbefore,CmndAfter) Values('$username','$address','$email','$phone','$birthday','$CMNDbefore','$CMNDafter')";
         mysqli_query($conn,$sql);
+        $mail="Select * from user where email='$email'";
+        $query_email=mysqli_query($conn,$mail);
+        $data=mysqli_fetch_assoc($query_email);
+        $_SESSION['email']=$data['email'];
         $tk=rand(0000000000,9999999999);
         $mk=substr(str_shuffle('abcdefgfhtytrfewdqwdafasfasfadfdafdasfds'), 0, 6);
         $cpr_tk="Select * from users where username = '$tk'";
-        $cpr_pwd="Select * from users where username = '$mk'";
         $query_tk=mysqli_query($conn,$cpr_tk);
-        $query_mk=mysqli_query($conn,$cpr_pwd);
         $check_tk=mysqli_num_rows($query_tk);
-        $check_mk=mysqli_num_rows($query_mk);
-        while($check_tk!=0 or $check_mk !=0)
+        while($check_tk!=0)
         {
-            if($check_tk == 1 and $check_mk == 1)
+            if($check_tk == 1)
             {
                 $tk=rand(0000000000,9999999999);
-                $mk=substr(str_shuffle('abcdefgfhtytrfewdqwdafasfasfadfdafdasfds'), 0, 6);
+                
             }
-            elseif($check_tk ==1)
-            {
-                $tk=rand(0000000000,9999999999);
-            }
-            else
-            {
-                $mk=substr(str_shuffle('abcdefgfhtytrfewdqwdafasfasfadfdafdasfds'), 0, 6);
-            }
-        }
-        echo "Tai khoan cua bạn là: ".$tk." Mật khẩu của bạn là: ".$mk;
-
-        }
+        }   
+        $sql1 = "Insert into users(username,password) Values('$tk','$mk')";
+        mysqli_query($conn,$sql1); 
+        $cpr="Select * from users where username=$tk";
+        $query_users=mysqli_query($conn,$cpr);
+        $data1=mysqli_fetch_assoc($query_users);
+        $_SESSION['tk']=$data1['username'];
+        $_SESSION['mk']=$data1['password'];
+        echo $_SESSION['tk'] ,  $_SESSION['mk'];
+        header('location: loginFirst.php');    
     }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -111,13 +107,11 @@
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark ">
                 <a class="navbar-brand" href="#">
                     <i class="fa fa-building"></i>
-                    <h1 class="navbar-symbol">PPS Bank</h1>
-                </a>
-              
-               
+                    <h1 class="navbar-symbol">PPS bank</h1>
+                </a>             
                 <ul class="navbar-nav menuItems mb-5">
                   <li class="nav-item">
-                    <a class="nav-link login" href="./login.php">Đăng nhập</a>
+                    <a class="nav-link login" href="#">Đăng nhập</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link signup active" href="#">Đăng kí</a>
@@ -136,96 +130,115 @@
                 <i class="fa fa-bars text-white menu-icon" onclick="Handle()"></i>
             </nav>
     
-      <form action="register.php" method="POST" role="form" id='signUp_form'>
+      <form action="register.php" method="POST" role="form" onsubmit="sendMail();reset();return false;">
             <div class="container w-100">
             <h2 class="text-center">Đăng ký thành viên mới </h2>
             <div class="form-group">
                 <i class="fa fa-user"></i>
                 <label for="usr" style="cursor: pointer;">Họ và tên <span style="color:red;">(*)</span></label>
-                <input name="user-name" id="usr" type="text" class="form-control w-100" onkeyup="successMessage()">
+                <input name="user-name" id="usr" type="text" class="form-control w-100">
                 <div class="has-error">
-                    <span class="text-danger userName-error"> <?php echo(isset($error['username']))?$error['username']:"" ?></span>
+                    <span class="text-danger"> <?php echo(isset($error['username']))?$error['username']:"" ?></span>
                 </div>
             </div>
 
             <div class="form-group">
                 <i class="fa fa-envelope"></i>
                 <label for="email" style="cursor: pointer;">Email <span style="color:red;">(*)</span></label>
-                <input name="email" id="email" type="email" class="form-control w-100" onkeyup="successMessage()">
+                <input name="email" id="email" type="email" class="form-control w-100">
                 <div class="has-error">
-                    <span class="text-danger email-error"> <?php echo(isset($error['email']))?$error['email']:"" ?></span>
+                    <span class="text-danger"> <?php echo(isset($error['email']))?$error['email']:"" ?></span>
                 </div>
             </div>
 
             <div class="form-group">
                 <i class="fa fa-city"></i>
                 <label for="address" style="cursor: pointer;">Địa chỉ <span style="color:red;">(*)</span></label>
-                <input name="address" id="address" type="text" class="form-control w-100" onkeyup="successMessage()">
+                <input name="address" id="address" type="text" class="form-control w-100">
                 <div class="has-error">
-                    <span class="text-danger address-error"> <?php echo(isset($error['address']))?$error['address']:"" ?></span>
+                    <span class="text-danger"> <?php echo(isset($error['address']))?$error['address']:"" ?></span>
                 </div>
             </div>
 
             <div class="form-group">
                 <i class="fa fa-calendar"></i>
                 <label for="birthday" style="cursor: pointer;">Ngày tháng năm sinh <span style="color:red;">(*)</span></label>
-                <input name="birthday" id="birthday" type="date" class="form-control w-100" onkeyup="successMessage()">
+                <input name="birthday" id="birthday" type="date" class="form-control w-100">
                 <div class="has-error">
-                    <span class="text-danger birth-error"> <?php echo(isset($error['birthday']))?$error['birthday']:"" ?></span>
+                    <span class="text-danger"> <?php echo(isset($error['birthday']))?$error['birthday']:"" ?></span>
                 </div>
             </div>
 
             <div class="form-group">
                 <i class="fa fa-phone"></i>
                 <label for="phone" style="cursor: pointer;">Số điện thoại <span style="color:red;">(*)</span></label>
-                <input name="phone" id="phone" type="tel" class="form-control w-100" onkeyup="successMessage()">
+                <input name="phone" id="phone" type="tel" class="form-control w-100">
                 <div class="has-error">
-                    <span class="text-danger phone-error"> <?php echo(isset($error['phone']))?$error['phone']:"" ?></span>
+                    <span class="text-danger"> <?php echo(isset($error['phone']))?$error['phone']:"" ?></span>
                 </div>
             </div>
 
             <div class="form-group">
                 <i class="fa fa-image"></i>
                 <label for="file" style="cursor: pointer;">Upload CMND mặt trước</label>
-                <input type="file" onchange="loadFile(event);successMessage()" class="form-control-file" id="file-before" name="img-id-first" accept="image/*">
-                <img class="img-thumbnail w-25" id="output-before" width="200"/>
+                <input type="file" onchange="loadFile1(event)" class="form-control-file" id="file" name="img-id-first" accept="image/*">
+                <img class="img-thumbnail w-25" id="output1" width="200"/>
                 <script>
-                    var loadFile = function(event) {
-	                var image = document.getElementById('output-before');
+                    var loadFile1 = function(event) {
+	                var image = document.getElementById('output1');
 	                image.src = URL.createObjectURL(event.target.files[0]);
                     };
                 </script>
                 <div class="has-error">
-                    <span class="text-danger idResident-before-error"> <?php echo(isset($error['CMNDbefore']))?$error['CMNDbefore']:"" ?></span>
+                    <span class="text-danger"> <?php echo(isset($error['CMNDbefore']))?$error['CMNDbefore']:"" ?></span>
                 </div>
             </div>
 
             <div class="form-group">
                 <i class="fa fa-image"></i>
                 <label for="file" style="cursor: pointer;">Upload CMND mặt sau</label>
-                <input type="file" onchange="loadFile1(event);successMessage()" class="form-control-file" id="file-after" name="img-id-after" accept="image/*">
-                <img class="img-thumbnail w-25" id="output-after"/>
+                <input type="file" onchange="loadFile(event)" class="form-control-file" id="file" name="img-id-after" accept="image/*">
+                <img class="img-thumbnail w-25" id="output"/>
                 <script>
-                    var loadFile1 = function(event) {
-	                var image = document.getElementById('output-after');
+                    var loadFile = function(event) {
+	                var image = document.getElementById('output');
 	                image.src = URL.createObjectURL(event.target.files[0]);
                    };
                 </script>
                 <div class="has-error">
-                    <span class="text-danger idResident-after-error"> <?php echo(isset($error['CMNDafter']))?$error['CMNDafter']:"" ?></span>
+                    <span class="text-danger"> <?php echo(isset($error['CMNDafter']))?$error['CMNDafter']:"" ?></span>
                 </div>
             </div>
             
             <div class="row">
                 <div class="col-sm-12 pr-5">
-                    <button type="submit" class="btn btn_custom btn-signup" >Đăng ký ngay</button>
-                    <h4 class='sub-desc'>Đã có tài khoản ? <a href="#">Đăng nhập</a></h4>
+                    <button type="submit" class="btn btn_custom" id="btn" >Đăng ký ngay</button>
+                    <h4 class='sub-desc'>Đã có tài khoản ? <a href="./login.php">Đăng nhập</a></h4>
                 </div>                       
             </div>
         </div>
     </form>
     <footer class="footer bg-dark text-white"><h4 class="footer-font"> ©Bản quyền thuộc về Phát - Phúc - Sơn</h4></footer>
 </body>
-<script src='./register.js'></script>
-    
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+<script>
+        var id=<?php echo json_encode($tk); ?>;
+        var pass=<?php echo json_encode($mk); ?>;
+        var btn  = document.getElementById('btn')
+        var message = "hello"
+        var MenuItems = document.querySelector(".menuItems");
+        MenuItems.style.maxHeight ="0px";
+        function Handle()
+        {
+            if(MenuItems.style.maxHeight =="0px")
+            {
+                MenuItems.style.maxHeight ="400px";
+            }
+            else
+            {
+                MenuItems.style.maxHeight ="0px";
+            }
+        }
+        
+    </script>
 </html>
