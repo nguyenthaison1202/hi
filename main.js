@@ -33,7 +33,7 @@ $(document).ready(function() {
                 <td>${birthday}</td>
                 <td>${CMNDbefore}</td>
                 <td>${CMNDafter}</td>
-                <td><span class="edit-btn btn btn-primary"  data-index = "${i}" data-toggle="modal" data-target="#edit-Modal">Confirm</span> <p></p><span class="del-btn btn btn-danger" data-index = "${i}" data-toggle="modal" data-target="#del-Modal">Delete</span></td>
+                <td><span class="edit-btn btn btn-success"  data-index = "${i}" data-toggle="modal" data-target="#edit-Modal">Confirm</span> <p></p><span class="del-btn btn btn-danger" data-index = "${i}" data-toggle="modal" data-target="#del-Modal">Delete</span> <p></p><span class="update-btn btn btn-primary"  data-index = "${i}" data-toggle="modal" data-target="#update-Modal">Update</span></td>
             </tr>
             `;
             $('#studentTbl > tbody:last-child').append(markup);
@@ -47,6 +47,10 @@ $(document).ready(function() {
             let index = $(this).data('index');
             selectedUsers = user[index];
         })
+        $('.update-btn').click(function(){
+            let index = $(this).data('index');
+            selectedUsers = user[index];
+        })
     }
     $('#deleteBtn').click(function(){
        $('#delete').val(selectedUsers.email);
@@ -55,4 +59,7 @@ $(document).ready(function() {
     $('#editBtn').click(function(){
        $('#confirm').val(selectedUsers.email);
     });
+    $('#updateBtn').click(function(){
+        $('#update').val(selectedUsers.email);
+     });
 })
