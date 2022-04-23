@@ -68,6 +68,39 @@
         {
             echo '<h3 class="text-danger text-center pt-5">Tài khoản đã xác minh </h3>';
         }
+        else if($print['confirm'] === "2")
+        {
+            if(isset($_POST['img-id-first']))
+            {
+                $CMNDbefore = $_POST['img-id-first'];
+                $CMNDafter = $_POST['img-id-after'];
+                $sql_CMNDbefore = "update logup  set CMNDbefore = '$CMNDbefore' where email = (select email from login where username = '$username')";
+                $sql_CMNDafter = "update logup  set CMNDafter = '$CMNDafter' where email = (select email from login where username = '$username')";
+                $confirm = "update logup  set confirm = 0 where email = (select email from login where username = '$username')";
+                $query_CMNDbefore=mysqli_query($conn, $sql_CMNDbefore);
+                $query_CMNDafter=mysqli_query($conn, $sql_CMNDafter);
+                $query_confirm = mysqli_query($conn,$confirm);
+                echo '<h3 class="text-danger text-center pt-5">Tài khoản đang chờ xác minh </h3>';
+            }
+            else{
+                echo '<div class="container  d-flex justify-content-center align-items-center w-100">
+                    <form action = "" method = "POST">
+                    <h4 class="text-center text-danger mt-5">Bạn cần upload lại CMND để tiếp tục</h4>
+                    <div class="form-group">
+                    <label for="file" style="cursor: pointer;">Upload CMND mặt trước</label> 
+                    <input type="file"  class="form-control-file" id="file" name="img-id-first" accept="image/*">
+                    </div>
+                    <div class="form-group">
+                        <label for="file" style="cursor: pointer;">Upload CMND mặt sau</label>
+                        <input type="file" class="form-control-file" id="file" name="img-id-after" accept="image/*">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                    </div>';
+            }
+           
+        }
+
         else if($print['confirm'] === "-1")
         {
             header('Location: login.php');
