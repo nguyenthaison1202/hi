@@ -15,6 +15,13 @@
         mysqli_query($conn,$confirm);
        
     }
+    elseif(isset($_POST['update']))
+    {
+        $email = $_POST['update'];
+        $confirm = "update logup set confirm = 2 where email = '$email'";
+        mysqli_query($conn,$confirm);
+       
+    }
     
 ?>
 <!DOCTYPE html>
@@ -52,47 +59,64 @@
             </table>
     </div>
     <!-- Edit modal -->
-    
-    <div class="modal fade" id="edit-Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role='document'>
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Confirm User</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+        <div class="modal fade" id="edit-Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role='document'>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirm User</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-footer">
+                    <form action="./confirm.php" method="POST">
+                        <input type="hidden" name="confirm" id="confirm"/>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" id="editBtn" class="btn btn-success">Save changes</button>
+                        </form>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                <form action="./confirm.php" method="POST">
-                    <input type="hidden" name="confirm" id="confirm"/>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" id="editBtn" class="btn btn-primary">Save changes</button>
-                
-                </form>
-                </div>
+            </div>
+        </div>
+    <div class="modal fade" id="del-Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role='document'>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Delete</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-footer">
+                    <form action="./confirm.php" method="POST">
+                        <input type="hidden" name="delete" id="delete"/>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" id="deleteBtn" class="btn btn-danger">Delete</button>
+                    </form>
+                    </div>
+            </div>
         </div>
     </div>
-</div>
-<div class="modal fade" id="del-Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role='document'>
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Delete</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-footer">
-                <form action="./confirm.php" method="POST">
-                    <input type="hidden" name="delete" id="delete"/>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" id="deleteBtn" class="btn btn-danger">Delete</button>
-                
-                </form>
-                </div>
+    <div class="modal fade" id="update-Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role='document'>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Delete</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-footer">
+                    <form action="./confirm.php" method="POST">
+                        <input type="hidden" name="update" id="update"/>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" id="updateBtn" class="btn btn-primary">Update</button>
+                    </form>
+                    
+                    </div>
+            </div>
         </div>
     </div>
-</div>
 </div>
 </body>
 <script src="./main.js"></script>
