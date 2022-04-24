@@ -1,41 +1,42 @@
 <?php
 include './connect.php';
-    if(isset($_POST["usr"]))
+if(isset($_POST["usr"]))
+{
+    $err=[];
+    $username=$_POST["usr"];
+    $password=$_POST["password"];
+    $cpr_tk="Select * from login where username = '$username'";
+    $cpr_pwd="Select * from login where password = '$password'";
+    $query_tk=mysqli_query($conn,$cpr_tk);
+    $query_mk=mysqli_query($conn,$cpr_pwd);
+    $data=mysqli_fetch_assoc($query_tk);
+    $check_tk=mysqli_num_rows($query_tk);
+    $check_mk=mysqli_num_rows($query_mk);
+    if($check_tk ==0)
     {
-        $err=[];
-        $username=$_POST["usr"];
-        $password=$_POST["password"];
-        $cpr_tk="Select * from login where username = '$username'";
-        $cpr_pwd="Select * from login where password = '$password'";
-        $query_tk=mysqli_query($conn,$cpr_tk);
-        $query_mk=mysqli_query($conn,$cpr_pwd);
-        $data=mysqli_fetch_assoc($query_tk);
-        $check_tk=mysqli_num_rows($query_tk);
-        $check_mk=mysqli_num_rows($query_mk);
-        if($check_tk ==0)
+        $err['$username']="Tài khoản không đúng";
+    }
+    if($check_mk == 0)
+    {
+        $err['$password']="Mật khẩu không đúng";
+    }
+    if(empty($err))
+    {
+        $_SESSION['usr']=$data['username'];
+        $username = $_SESSION['usr'];
+        $sql = "select confirm from logup where email = (select email from login where username = '$username')";
+        $data=mysqli_query($conn,$sql);
+        $print=mysqli_fetch_assoc($data);
+        if($print['confirm'] === "-1")
         {
-            $err['$username']="Tài khoản không đúng";
+            $errorMessage = '<h3 class="text-danger text-center pt-5"> Tài khoản này đã bị vô hiệu hóa, vui lòng liên hệ tổng đài 18001008 </h3>';
         }
-        if($check_mk == 0)
-        {
-            $err['$password']="Mật khẩu không đúng";
-        }
-        if(empty($err))
-        {
-            $_SESSION['usr']=$data['username'];
-            $username = $_SESSION['usr'];
-            $sql = "select confirm from logup where email = (select email from login where username = '$username')";
-            $data=mysqli_query($conn,$sql);
-            $print=mysqli_fetch_assoc($data);
-            if($print['confirm'] === "-1")
-            {
-                $errorMessage = '<h3 class="text-danger text-center pt-5"> Tài khoản này đã bị vô hiệu hóa, vui lòng liên hệ tổng đài 18001008 </h3>';
-            }
-            else{
-                header('location: homePage.php');
-            }
+        else{
+            header('location: homePage.php');
         }
     }
+}
+        
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -79,6 +80,7 @@ include './connect.php';
                 <i class="fa fa-bars text-white menu-icon" onclick="Handle()"></i>
 </nav>
     <form action="login.php" method="POST" role="form">
+        
         <div class="container w-100">
             <h4 class="text-center mt-5">Form đăng nhập</h4>
 
@@ -103,7 +105,7 @@ include './connect.php';
                 <input type="checkbox" class="custom-control-input" id="customCheck" name="rmr-me">
                 <label class="custom-control-label" for="customCheck">Remember me</label>
             </div>
-
+            <span class="text-danger"><?php echo(isset($message))?$message:"" ?></span>
             <div class="form-row">
                 <div class="form-group input-items">
                     <button type="submit" class="btn btn-primary mr-4">Đăng nhập</button>
@@ -115,6 +117,6 @@ include './connect.php';
 
         </div>
     </form>
-    <footer class="footer bg-dark text-white"><h4 class="footer-font"> ©Bản quyền thuộc về Phát - Phúc - Sơn</h4></footer>
+    <footer class="footer bg-dark text-white mt-5"><h4 class="footer-font"> ©Bản quyền thuộc về Phát - Phúc - Sơn</h4></footer>
 </body>
 </html>

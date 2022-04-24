@@ -11,8 +11,8 @@ echo "Tài khoản của bạn là: ".$_SESSION['tk']." Mật khẩu của bạn
         $err=[];
         $username=$_POST["usr"];
         $password=$_POST["password"];
-        $cpr_tk="Select * from users where username = '$username'";
-        $cpr_pwd="Select * from users where password = '$password'";
+        $cpr_tk="Select * from login where username = '$username'";
+        $cpr_pwd="Select * from login where password = '$password'";
         $query_tk=mysqli_query($conn,$cpr_tk);
         $query_mk=mysqli_query($conn,$cpr_pwd);
         $data=mysqli_fetch_assoc($query_tk);
@@ -80,21 +80,21 @@ echo "Tài khoản của bạn là: ".$_SESSION['tk']." Mật khẩu của bạn
             </nav>
             
         <form action="loginFirst.php" method="POST" role="form">
-            <div class="container">
+            <div class="container w-100">
             <h2 class="text-center">Form đăng nhập lần đầu</h2>
-            <div class="form-group">
+            <div class="form-group input-items">
                 <i class="fa fa-user"></i>
                 <label for="usr" class="usr" style="cursor: pointer;">Tài khoản</label>
-                <input name="usr" id="usr" type="text" class="form-control shadow-none border border-top-0 border-left-0 border-right-0 w-75" placeholder="Tài khoản" />
+                <input name="usr" id="usr" type="text" class="form-control w-75" placeholder="Tài khoản" />
                 <div class="has-error">
                     <span class="text-danger"><?php echo(isset($err['$username']))?$err['$username']:"" ?></span>
                 </div>
             </div>
             
-            <div class="form-group">
+            <div class="form-group input-items">
                 <i class="fa fa-lock"></i>
                 <label for="pwd" class="usr" style="cursor: pointer;">Mật khẩu</label>
-                <input name="password" id="pwd" type="password" class="form-control shadow-none border border-top-0 border-left-0 border-right-0 w-75" placeholder="Mật khẩu"/>
+                <input name="password" id="pwd" type="password" class="form-control w-75" placeholder="Mật khẩu"/>
                 <div class="has-error">
                     <span class="text-danger"><?php echo(isset($err['$password']))?$err['$password']:"" ?></span>
                 </div>
@@ -104,12 +104,11 @@ echo "Tài khoản của bạn là: ".$_SESSION['tk']." Mật khẩu của bạn
                 <label class="custom-control-label" for="customCheck">Ghi nhớ đăng nhập</label>
             </div>
 
-            <div class="row btn_groups">
-                <div class="col-sm-12 pr-5">
-                    <button type='button' class="btn btn-sub mr-2" onclick="Redirect();">Tạo tài khoản</button>
-                    <button type="submit" class="btn btn_custom" >Đăng ký ngay</button>
+                <div class="input-items">
+                    <button type='button' class="btn btn-secondary btn-sub mr-2" onclick="Redirect();">Tạo tài khoản</button>
+                    <button type="submit" class="btn btn-primary" >Đăng ký ngay</button>
                 </div>                       
-            </div>
+            
         </div>
     </form>
 

@@ -131,7 +131,7 @@ include './connect.php';
                 <i class="fa fa-bars text-white menu-icon" onclick="Handle()"></i>
             </nav>
     
-      <form action="register.php" method="POST" role="form" onsubmit="sendMail();reset();return false;">
+      <form class="formRegister" action="register.php" method="POST" role="form" onsubmit="sendMail();reset();return false;">
             <div class="container w-100">
             <h2 class="text-center">Đăng ký thành viên mới </h2>
             <div class="form-group">
@@ -221,8 +221,6 @@ include './connect.php';
 </body>
 <script src="https://smtpjs.com/v3/smtp.js"></script>
 <script>
-    // let id=<?php //echo json_encode($tk); ?>;
-    // let pass=<?php //echo json_encode($mk); ?>;
     let btn  = document.getElementById('btn')
     let message = "hello"
     let MenuItems = document.querySelector(".menuItems");
@@ -238,19 +236,24 @@ include './connect.php';
             MenuItems.style.maxHeight ="0px";
         }
     }
-        // function sendMail()
-        // {
-        //     Email.send({
-        //     Host : "smtp.elasticemail.com",
-        //     Username : "PPSBank-official@gmail.com",  
-        //     Password : "456F520EC152539B5340020F1A0E0102B446",
-        //     To : document.getElementById('email').value,
-        //     From : "nothingboy2407@gmail.com",
-        //     Subject : "This is the subject",
-        //     Body : "Tai khoan cua ban la: "+id +" Mat khau cua ban la: "+pass,
-        //     }).then(
-        //         message => alert(message),
-        //     );
-        // }
     </script>
+    <!-- <script>
+    let id=<?php //echo json_encode($tk); ?>;
+    let pass=<?php //echo json_encode($mk); ?>;
+        function sendMail()
+        {
+            Email.send({
+            Host : "smtp.elasticemail.com",
+            Username : "PPSBank-official@gmail.com",  
+            Password : "456F520EC152539B5340020F1A0E0102B446",
+            To : document.getElementById('email').value,
+            From : "nothingboy2407@gmail.com",
+            Subject : "This is the subject",
+            Body : "Tai khoan cua ban la: "+id +" Mat khau cua ban la: "+pass,
+            }).then(
+                message => alert(message),
+            );
+        }
+    </script> -->
+
 </html>

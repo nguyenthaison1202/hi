@@ -16,8 +16,9 @@
         }
         if(empty($err))
         {
-            $sql="update users set password=$cpass where username=$username";
+            $sql="update login set password='$cpass' where username='$username'";
             mysqli_query($conn,$sql);
+            header('Location: ./login.php');
         }
 
     }
@@ -34,7 +35,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/7b78e77d77.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet" href="./loginFirst.css">
     
     <title>Document</title>
 </head>
@@ -68,27 +68,27 @@
     <form  action="" method="POST" role="form">
         <div class="container">
         <h4 class="mb-5 text-center text-danger">Bạn phải đổi mật khẩu để tiếp tục</h4>
-        <div class="form-group d-block">
+        <div class="form-group input-items">
             <i class="fa fa-lock"></i>
             <label for="newpwd" style="cursor: pointer;">Mật khẩu mới</label>
-            <input name="newpassword" id="newpwd" type="password" class="form-control shadow-none border border-top-0 border-left-0 border-right-0 w-75" placeholder="New Password"/>
+            <input name="newpassword" id="newpwd" type="password" class="form-control  w-75" placeholder="New Password"/>
             <div class="has-err">
                 <span class="text-danger"><?php echo(isset($err["npass"]))?$err["npass"]:"" ?></span>
             </div>
         </div>
-        <div class="form-group d-block">
+        <div class="form-group input-items">
         <i class="fa fa-key"></i>
             <label for="confirm" style="cursor: pointer;">Xác nhận mật khẩu</label>
-            <input name="confirm" id="confirm" type="password" class="form-control shadow-none border border-top-0 border-left-0 border-right-0 w-75" placeholder="Confirm Password"/>
+            <input name="confirm" id="confirm" type="password" class="form-control  w-75" placeholder="Confirm Password"/>
             <div class="has-err">
                 <span class="text-danger"><?php echo(isset($err["cpass"]))?$err["cpass"]:"" ?></span>
             </div>
         </div>
 
         <div class="row btn_groups">
-                <div class="col-sm-12 pr-5">
-                    <button type='button' class="btn btn-sub mr-2" onclick="logOut();">Đăng xuất</button>
-                    <button type="submit" class="btn btn_custom" >Đăng ký ngay</button>
+                <div class="col-sm-12 pr-5 input-items">
+                    <button type='button' class="btn btn-secondary" onclick="logOut();">Đăng xuất</button>
+                    <button type="submit" class="btn btn-primary" >Đăng ký ngay</button>
                 </div>                       
         </div>
     </div>

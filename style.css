@@ -229,12 +229,20 @@ form{
 }
 
 .input-items{
-    margin-left:250px;
+    margin-left:auto;
+    margin-right:auto;
 }
 
 .custom-control{
-    margin-left:250px;
+    margin-left:auto;
+    margin-right:auto;
 }
+
+.formRegister{
+    margin-bottom: 400px;
+}
+
+
 @media screen and (max-width:720px){
     .btn-sub{
         margin-bottom: 10px;
@@ -245,6 +253,9 @@ form{
     }
     .button-form{
         display:block;
+    }
+    .input-items{
+        margin-left: 0px;
     }
     
 }
