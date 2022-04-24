@@ -1,43 +1,45 @@
+
 <?php
 include './connect.php';
 if(isset($_POST["usr"]))
-{
-    $err=[];
-    $username=$_POST["usr"];
-    $password=$_POST["password"];
-    $cpr_tk="Select * from login where username = '$username'";
-    $cpr_pwd="Select * from login where password = '$password'";
-    $query_tk=mysqli_query($conn,$cpr_tk);
-    $query_mk=mysqli_query($conn,$cpr_pwd);
-    $data=mysqli_fetch_assoc($query_tk);
-    $check_tk=mysqli_num_rows($query_tk);
-    $check_mk=mysqli_num_rows($query_mk);
-    if($check_tk ==0)
     {
-        $err['$username']="Tài khoản không đúng";
-    }
-    if($check_mk == 0)
-    {
-        $err['$password']="Mật khẩu không đúng";
-    }
-    if(empty($err))
-    {
-        $_SESSION['usr']=$data['username'];
-        $username = $_SESSION['usr'];
-        $sql = "select confirm from logup where email = (select email from login where username = '$username')";
-        $data=mysqli_query($conn,$sql);
-        $print=mysqli_fetch_assoc($data);
-        if($print['confirm'] === "-1")
+        $err=[];
+        $username=$_POST["usr"];
+        $password=$_POST["password"];
+        $cpr_tk="Select * from login where username = '$username'";
+        $cpr_pwd="Select * from login where password = '$password'";
+        $query_tk=mysqli_query($conn,$cpr_tk);
+        $query_mk=mysqli_query($conn,$cpr_pwd);
+        $data=mysqli_fetch_assoc($query_tk);
+        $check_tk=mysqli_num_rows($query_tk);
+        $check_mk=mysqli_num_rows($query_mk);
+        if($check_tk ==0)
         {
-            $errorMessage = '<h3 class="text-danger text-center pt-5"> Tài khoản này đã bị vô hiệu hóa, vui lòng liên hệ tổng đài 18001008 </h3>';
+            $err['$username']="Tài khoản không đúng";
         }
-        else{
-            header('location: homePage.php');
+        if($check_mk == 0)
+        {
+            $err['$password']="Mật khẩu không đúng";
+        }
+        if(empty($err))
+        {
+            $_SESSION['usr']=$data['username'];
+            $username = $_SESSION['usr'];
+            $sql = "select confirm from logup where email = (select email from login where username = '$username')";
+            $data=mysqli_query($conn,$sql);
+            $print=mysqli_fetch_assoc($data);
+            if($print['confirm'] === "-1")
+            {
+                $errorMessage = '<h3 class="text-danger text-center pt-5"> Tài khoản này đã bị vô hiệu hóa, vui lòng liên hệ tổng đài 18001008 </h3>';
+            }
+            else{
+                header('location: homePage.php');
+            }
         }
     }
-}
-        
 ?>
+        
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -106,18 +108,12 @@ if(isset($_POST["usr"]))
                 <label class="custom-control-label" for="customCheck">Remember me</label>
             </div>
             <span class="text-danger"><?php echo(isset($message))?$message:"" ?></span>
-            <div class="form-row">
                 <div class="form-group input-items">
                     <button type="submit" class="btn btn-primary mr-4">Đăng nhập</button>
+                    <button type="button" class="btn btn-secondary"><a href="./register.php" class="text-white text-decoration-none">Tạo tài khoản</a></button>  
                 </div>
-                <div class="form-group">
-                  <button type="button" class="btn btn-secondary"><a href="./register.php" class="text-white text-decoration-none">Tạo tài khoản</a></button>  
-                </div>
-            </div>
-
-        </div>
+    </div>
     </form>
     <footer class="footer bg-dark text-white mt-5"><h4 class="footer-font"> ©Bản quyền thuộc về Phát - Phúc - Sơn</h4></footer>
 </body>
-<script src="./main.js"></script>
 </html>

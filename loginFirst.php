@@ -51,33 +51,6 @@ echo "Tài khoản của bạn là: ".$_SESSION['tk']." Mật khẩu của bạn
 </head>
 <body>
 
-        <nav class="navbar navbar-expand-sm bg-dark navbar-dark ">
-                <a class="navbar-brand" href="#">
-                    <i class="fa fa-building"></i>
-                    <h1 class="navbar-symbol">PPS Bank</h1>
-                </a>
-              
-               
-                <ul class="navbar-nav menuItems mb-5">
-                  <li class="nav-item">
-                    <a class="nav-link login" href="./login.php">Đăng nhập</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link signup" href="./register.php">Đăng kí</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                        Xem Thêm
-                    </a>
-                    <div class="dropdown-menu ">
-                      <a class="dropdown-item" href="#">Thông tin ngân hàng</a>
-                      <a class="dropdown-item" href="#">Quyền lợi khách hàng</a>
-                      <a class="dropdown-item" href="#">Hỏi & Đáp</a>
-                    </div>
-                  </li>
-                </ul>
-                <i class="fa fa-bars text-white menu-icon" onclick="Handle()"></i>
-            </nav>
             
         <form action="loginFirst.php" method="POST" role="form">
             <div class="container w-100">
@@ -115,6 +88,5 @@ echo "Tài khoản của bạn là: ".$_SESSION['tk']." Mật khẩu của bạn
     <footer class="footer bg-dark text-white"><h4 class="footer-font"> ©Bản quyền thuộc về Phát - Phúc - Sơn</h4></footer>
 
 </body>
-<script src="./main.js"></script>
-
+<script src='./loginFirst.js'></script>
 </html>
