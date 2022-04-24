@@ -47,7 +47,6 @@ echo "Tài khoản của bạn là: ".$_SESSION['tk']." Mật khẩu của bạn
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/7b78e77d77.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet" href="./loginFirst.css">
     <title>Document</title>
 </head>
 <body>

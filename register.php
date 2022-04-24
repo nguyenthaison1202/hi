@@ -37,15 +37,15 @@ include './connect.php';
             $error['birthday']="Bạn chưa nhập ngày tháng năm sinh";
         }
 
-        // if(empty($CMNDbefore))
-        // {
-        //     $error['CMNDbefore']="Vui lòng tải ảnh CMND mặt trước";
-        // }
+        if(empty($CMNDbefore))
+        {
+            $error['CMNDbefore']="Vui lòng tải ảnh CMND mặt trước";
+        }
 
-        // if(empty($CMNDafter))
-        // {
-        //     $error['CMNDafter']="Vui lòng tải ảnh CMND mặt sau";
-        // }
+        if(empty($CMNDafter))
+        {
+            $error['CMNDafter']="Vui lòng tải ảnh CMND mặt sau";
+        }
 
         $mail="Select * from logup where email='$email'";
         $query_email=mysqli_query($conn,$mail);
@@ -112,7 +112,7 @@ include './connect.php';
                 </a>             
                 <ul class="navbar-nav menuItems mb-5">
                   <li class="nav-item">
-                    <a class="nav-link login" href="#">Đăng nhập</a>
+                    <a class="nav-link login" href="./login.php">Đăng nhập</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link signup active" href="#">Đăng kí</a>
@@ -210,49 +210,47 @@ include './connect.php';
                     <span class="text-danger"> <?php echo(isset($error['CMNDafter']))?$error['CMNDafter']:"" ?></span>
                 </div>
             </div>
-            
-            <div class="row">
-                <div class="col-sm-12 pr-5">
+                <div class="form-group button-form">
                     <button type="submit" class="btn btn_custom" id="btn" >Đăng ký ngay</button>
-                    <h4 class='sub-desc'>Đã có tài khoản ? <a href="./login.php">Đăng nhập</a></h4>
-                </div>                       
-            </div>
+                    <h4>Đã có tài khoản ? Hãy <a href="./login.php">Đăng nhập</a> </h4>
+                </div>
+                
         </div>
     </form>
     <footer class="footer bg-dark text-white"><h4 class="footer-font"> ©Bản quyền thuộc về Phát - Phúc - Sơn</h4></footer>
 </body>
 <script src="https://smtpjs.com/v3/smtp.js"></script>
 <script>
-    var id=<?php echo json_encode($tk); ?>;
-    var pass=<?php echo json_encode($mk); ?>;
-    var btn  = document.getElementById('btn')
-    var message = "hello"
-        // var MenuItems = document.querySelector(".menuItems");
-        // MenuItems.style.maxHeight ="0px";
-        // function Handle()
-        // {
-        //     if(MenuItems.style.maxHeight =="0px")
-        //     {
-        //         MenuItems.style.maxHeight ="400px";
-        //     }
-        //     else
-        //     {
-        //         MenuItems.style.maxHeight ="0px";
-        //     }
-        // }
-        function sendMail()
+    // let id=<?php //echo json_encode($tk); ?>;
+    // let pass=<?php //echo json_encode($mk); ?>;
+    let btn  = document.getElementById('btn')
+    let message = "hello"
+    let MenuItems = document.querySelector(".menuItems");
+    MenuItems.style.maxHeight ="0px";
+    function Handle()
+    {
+        if(MenuItems.style.maxHeight =="0px")
         {
-            Email.send({
-            Host : "smtp.elasticemail.com",
-            Username : "PPSBank-official@gmail.com",  
-            Password : "456F520EC152539B5340020F1A0E0102B446",
-            To : document.getElementById('email').value,
-            From : "nothingboy2407@gmail.com",
-            Subject : "This is the subject",
-            Body : "Tai khoan cua ban la: "+id +" Mat khau cua ban la: "+pass,
-            }).then(
-                message => alert(message),
-            );
+            MenuItems.style.maxHeight ="400px";
         }
+        else
+        {
+            MenuItems.style.maxHeight ="0px";
+        }
+    }
+        // function sendMail()
+        // {
+        //     Email.send({
+        //     Host : "smtp.elasticemail.com",
+        //     Username : "PPSBank-official@gmail.com",  
+        //     Password : "456F520EC152539B5340020F1A0E0102B446",
+        //     To : document.getElementById('email').value,
+        //     From : "nothingboy2407@gmail.com",
+        //     Subject : "This is the subject",
+        //     Body : "Tai khoan cua ban la: "+id +" Mat khau cua ban la: "+pass,
+        //     }).then(
+        //         message => alert(message),
+        //     );
+        // }
     </script>
 </html>
