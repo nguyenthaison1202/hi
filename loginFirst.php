@@ -115,5 +115,6 @@ echo "Tài khoản của bạn là: ".$_SESSION['tk']." Mật khẩu của bạn
     <footer class="footer bg-dark text-white"><h4 class="footer-font"> ©Bản quyền thuộc về Phát - Phúc - Sơn</h4></footer>
 
 </body>
-<script src='./loginFirst.js'></script>
+<script src="./main.js"></script>
+
 </html>

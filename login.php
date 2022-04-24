@@ -119,4 +119,5 @@ if(isset($_POST["usr"]))
     </form>
     <footer class="footer bg-dark text-white mt-5"><h4 class="footer-font"> ©Bản quyền thuộc về Phát - Phúc - Sơn</h4></footer>
 </body>
+<script src="./main.js"></script>
 </html>
